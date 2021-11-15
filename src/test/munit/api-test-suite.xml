@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="api-test-suite.xml" />
+	<munit:test name="api-test-suite-apix-salesforce-sapi-mainTest" doc:id="4c8b3522-ba13-4c19-9fe5-1c3bd60f3dbf" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a578e1c6-5905-4e0c-8289-490f5301aaae" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apiRouter" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="9d266e04-7ca0-4070-aebd-2b5c4991b432" >
+				<flow-ref doc:name=" apix-salesforce-sapi-main" doc:id="b0eecbe8-e0ca-4630-a159-e6164189ac8e" name="apix-salesforce-sapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="f31d9d16-bd8b-4601-b8f2-45c244e3a7d1" >
+						<logger level="INFO" doc:name="Logger" doc:id="c933e2e5-dc30-42e2-8858-ca5e8018b729" message="error raised"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="fa042379-e2a7-4060-a0da-ee2b70859124" actual="#[payload.errorType.identifier]" expected='#["BAD_REQUEST"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-apix-salesforce-sapi-mainTest1" doc:id="68fc1b3f-7ad5-427d-ab51-a2b94cc22371" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="bde4a8e7-e8cd-4f27-9435-4f08e8a88951" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apiRouter" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="6997151b-47e8-4228-9482-b0a7d06c0ce4" >
+				<flow-ref doc:name="apix-salesforce-sapi-main" doc:id="3cc324bb-3079-4568-8dce-2d16299f00ac" name="apix-salesforce-sapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="bb1deaae-c736-4749-b405-78c71875300f" >
+						<logger level="INFO" doc:name="Logger" doc:id="c6c20a6c-2eef-4052-82a4-3e83bf5f99d3" message="error raised"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="9e75c141-5b3d-4930-bff4-796e01380d11" actual="#[payload.errorType.identifier]" expected='#["NOT_FOUND"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-apix-salesforce-sapi-mainTest2" doc:id="6e1efa34-13a5-4185-8986-41ea245d2606" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="549c8196-3358-41e9-b0d4-44e54b7dbb7c" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apiRouter" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="5c042fc5-40ab-4a5a-8130-0c54314a66a2" >
+				<flow-ref doc:name="apix-salesforce-sapi-main" doc:id="0b09e285-0ef0-4ee7-90a6-5336d68e8a60" name="apix-salesforce-sapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="b8e49f15-946a-4b75-8d48-da998a56a3c0" >
+						<logger level="INFO" doc:name="Logger" doc:id="26943345-ac52-4fa3-a203-77478c1b99bd" message="error raised"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="0745a859-af44-4f8f-9ece-cd569c9f116b" actual="#[payload.errorType.identifier]" expected='#["METHOD_NOT_ALLOWED"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-apix-salesforce-sapi-mainTest3" doc:id="56c44b31-3eb6-4e12-a234-581d19a9a3ca" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a79af28e-e750-48db-b42c-17aa7ca02742" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apiRouter" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="38fb8d84-3f7d-4a87-8ad6-770f69859fb5" >
+				<flow-ref doc:name=" apix-salesforce-sapi-main" doc:id="c329d70c-d977-4e3b-9f92-a1d4c1745817" name="apix-salesforce-sapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="6523a4e5-de9f-4a02-9c01-8d25d5583e2f" >
+						<logger level="INFO" doc:name="Logger" doc:id="6e1e2f2b-6dc0-4930-98a2-af3f4572903b" message="error raised"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="5189edb1-ea20-4d6d-9b29-d3c2cf609e09" actual="#[payload.errorType.identifier]" expected='#["NOT_ACCEPTABLE"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-apix-salesforce-sapi-mainTest4" doc:id="ebcd6780-0c59-422c-97dd-91b633acd09f" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="93c574b5-fc49-462e-b65b-96c041a9822f" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apiRouter" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="a7cae0c3-9f6e-4e37-8c77-9d0b05b963a2" >
+				<flow-ref doc:name="apix-salesforce-sapi-main" doc:id="1e54f238-6404-4f6d-a9e7-580e2ba22f70" name="apix-salesforce-sapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="a9956c52-6d7a-4005-bafc-08807bcbbf6d" >
+						<logger level="INFO" doc:name="Logger" doc:id="557a97ef-8cdc-42a7-8b88-2708b7c98c75" message="error raised"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="710e4713-5614-4bf2-8496-8e012277d415" actual="#[payload.errorType.identifier]" expected='#["UNSUPPORTED_MEDIA_TYPE"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-apix-salesforce-sapi-mainTest5" doc:id="5113ecc6-5090-4b0f-8aa7-4714badc3481" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="f4c7d4d4-4ae4-45ca-8072-df0629873d17" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="apiRouter" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<try doc:name="Try" doc:id="b7b3a5e9-6fbc-4c09-9923-2aef5bcf0cba" >
+				<flow-ref doc:name="apix-salesforce-sapi-main" doc:id="a9f63b94-5a49-4b34-b120-2ab932f65fe1" name="apix-salesforce-sapi-main" />
+				<error-handler >
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="1a8e7300-cc47-43a0-b73b-e1be75c47fcf" >
+						<logger level="INFO" doc:name="Logger" doc:id="5d7d5ba5-fc23-40b3-87c3-dd5ba50bb5bb" message="error raised"/>
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="f75171eb-64a9-4ebc-af46-f8a3499e6192" actual="#[payload.errorType.identifier]" expected='#["NOT_IMPLEMENTED"]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\accounts\(accountid):apix-salesforce-sapi-configTest" doc:id="469bb00c-00c3-4fd2-9d3f-425d65414804" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="b132c029-c909-4477-9c77-7207211b0d98" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="94cb4961-ce49-450b-808c-d54d84d01a60" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  accountId: "0014I00001qsS4lQAE",&#10;  tradingName: "GenePoint",&#10;  accountNumber: "CC978213",&#10;  industry: "Biotechnology",&#10;  contacts: [&#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }, &#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }&#10;  ],&#10;  links: [&#10;    {&#10;      rel: "self",&#10;      href: "accounts/0014I00001qsS4lQAE"&#10;    }&#10;  ]&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" get:\accounts\(accountid):apix-salesforce-sapi-config" doc:id="72dfa219-9211-4ee1-b432-4f04d42c9511" name="get:\accounts\(accountid):apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="4d27a56f-44c6-4115-9b4c-77c2526739ef" actual="#[payload]" expected='#[{&#10;  accountId: "0014I00001qsS4lQAE",&#10;  tradingName: "GenePoint",&#10;  accountNumber: "CC978213",&#10;  industry: "Biotechnology",&#10;  contacts: [&#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }, &#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }&#10;  ],&#10;  links: [&#10;    {&#10;      rel: "self",&#10;      href: "accounts/0014I00001qsS4lQAE"&#10;    }&#10;  ]&#10;}]'/>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="2481f8de-8364-4e2c-b33d-9ccb6cebb7e5" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-post:\accounts:application\json:apiRouterTest" doc:id="5f0b1877-6c3c-4059-a02a-4949c7342ea2" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="013d6cfc-d013-4946-a956-30393b9a37d1" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4595091c-3ba2-4be1-ad71-3f5edcba9b3f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="post:\accounts:application\json:apiRouter" doc:id="ea3b380c-2794-4e34-9526-869ec9f3c3f6" name="post:\accounts:application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="7d45ae89-8052-4f56-8fad-5d7b77803317" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-put:\contacts\(contactid):application\json:apiRouterTest" doc:id="47994a4b-53ec-4283-af39-c46200695f28" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="224d1b0a-3caf-4a63-b06f-67ccb1b746a3" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4bd126e3-8f9e-458c-abb5-37b342ff4347" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]&#10;' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="put:\contacts\(contactid):application\json:apiRouter" doc:id="1707a2e2-0497-45b2-9a67-994d5355dbf4" name="put:\contacts\(contactid):application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="8beec627-0d98-4ffb-805b-7d93fd4a9c90" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-put:\lead\(leadid):application\json:apiRouterTest" doc:id="aa120533-9b7f-4eae-be5f-300644acc7e9" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="85be920b-46a2-4ba9-825e-9ba65d723a1d" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b927a640-76c0-431e-b7c7-207717b021e7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" put:\lead\(leadid):application\json:apiRouter" doc:id="2c41f85c-2b14-4a69-adcd-c28a1969705a" name="put:\lead\(leadid):application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="17268ef3-a97d-4b5a-9989-04ab7d75c71e" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\contacts:apiRouterTest" doc:id="f9645e4d-b57e-42bc-ad9e-8dcb6571b542" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="fd702cfd-0dc0-4f01-be8d-73d8b54019fd" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ed05a68b-fed8-4e8b-84ce-1373469ffd8d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" get:\contacts:apiRouter" doc:id="6a371f2d-1baa-49dd-9a5b-a8b9b56931c1" name="get:\contacts:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="76fdb093-fe0b-4b15-b75b-db7dc5abfa94" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\lead:apiRouterTest" doc:id="997b0528-92af-4bb7-a2c1-6f0010b08c4e" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a37aee2e-8555-4e47-b4b0-9ef397cc0394" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="3ef2c600-a002-432f-b859-79784452c10b" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" get:\lead:apiRouter" doc:id="2e8c397f-bbd3-40ac-9ed1-9d408e586cb2" name="get:\lead:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="6c1b3000-2add-469a-b315-df0e2b8ae819" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\contacts\(contactid):apiRouterTest" doc:id="010e8411-6672-45b5-9f89-d81639031aea" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="7417a4e3-aa8e-4597-b82f-d8a972f26995" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="47fb20b9-a07c-4710-8b4f-a87f154e2833" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" get:\contacts\(contactid):apiRouter" doc:id="09f9e016-3c63-4e0b-af2d-83fd54037ed7" name="get:\contacts\(contactid):apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="4dc93b8c-b17b-487d-9f81-34c521ee8477" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get:\lead\(leadid):apiRouterTest" doc:id="e3948f71-6d4d-45ce-a6ab-802e6c8864cb" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="f2743539-f50c-4308-ab34-f40c913c089b" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="8a46d3be-932e-40bc-bb1b-8967116c0171" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" get:\lead\(leadid):apiRouter" doc:id="d020123c-2e39-4595-a7a5-4f54e26177d9" name="get:\lead\(leadid):apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="703cd92f-d796-4cb3-a4e9-9944f1016a8e" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-post:\contacts:application\json:apiRouterTest" doc:id="4f9f8bee-34c9-4580-9f03-4803601857b5" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="a472b402-7612-4681-9a35-9ca2202fdd80" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f3ea418b-08b3-4604-b1ac-a66930c50163" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="post:\contacts:application\json:apiRouter" doc:id="fe7c6d7f-19aa-418c-be58-113d76c7aa8e" name="post:\contacts:application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="1d61a52c-dd93-4d5c-ac3b-30cec1fc42ac" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-post:\lead:application\json:apiRouterTest" doc:id="92974519-9c2a-492e-9494-913392f0cc44" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="35fdb4e5-aaa2-45bc-bc60-f40d695846da" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="503a6faa-e999-4bc5-b764-15ff841f5514" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="post:\lead:application\json:apiRouter" doc:id="7309b141-a6e8-4b46-870c-c47ebd8aa073" name="post:\lead:application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="fea12cd9-c3e4-48cd-8c9d-0d4943850a53" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-put:\accounts\(accountid):application\json:apiRouterTest" doc:id="19d008d2-6fd4-4b84-8410-5c682f320991" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="b8f17d24-d508-44c7-b4df-96d16c6a3644" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f82f464b-cc58-40f8-a08c-00426b1c778a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" put:\accounts\(accountid):application\json:apiRouter" doc:id="ae397ffe-7773-4087-9dd1-dcab48c1d028" name="put:\accounts\(accountid):application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="feaf1c6f-3801-4d28-80fa-17ddaa4cf988" actual="#[payload]" expected='#[[ {&#10;        "Email": "vibinviswanath14@gmail.com",&#10;        "FirstName": "jhooonggv",&#10;        "Phone": "97987987",&#10;        "Title": "DEVELOPER",&#10;        "Id": null,&#10;        "LastName": "kh",&#10;        "type": "Contact"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-put:\campaign\(campaignid):application\json:apiRouterTest" doc:id="99dd247d-f658-4d1d-a1a3-867342dbc7cf" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="d3e28052-841a-439f-8b03-4fdf21223b4b" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="34bd4dae-fe92-4466-84ef-3d48129786c5" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="put:\campaign\(campaignid):application\json:apiRouter" doc:id="f15dc808-9856-431d-85e7-03d7e88f7083" name="put:\campaign\(campaignid):application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="64cb0ac2-e525-432f-8599-ae52e165687e" actual="#[payload]" expected='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\campaign:apiRouterTest" doc:id="51fb8965-5f81-429a-b6b9-8c8c5d1e988c" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="90dc0e27-3b5e-42cf-8c2b-15fd60652391" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4c85591b-ef48-4201-9852-a29ccfac3f65" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name=" get:\campaign:apiRouter" doc:id="6d5e638d-ba1e-4cc3-b762-41c1d101660d" name="get:\campaign:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="71ca3e0b-9f80-4096-877c-d4fc5ae9ebef" actual="#[payload]" expected='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\campaign\(campaignid):apiRouterTest" doc:id="f7ebcbd0-c4a6-4c3d-83d0-aa6fbd00d317" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="daf1d401-2451-4a5a-a0d7-85d92630a8cd" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5099e771-c346-4043-9d88-200b8d66041b" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="get:\campaign\(campaignid):apiRouter" doc:id="3b39fce2-6aa5-4d67-9839-4030b38016f6" name="get:\campaign\(campaignid):apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="884275e1-2c4c-421a-aabc-896b76b959ea" actual="#[payload]" expected='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-post:\campaign:application\json:apiRouterTest" doc:id="02ef32fa-9437-4ac9-a57c-43a91db19e19" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="9707fdfd-7192-461e-9e02-6ffe060cf9ec" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="55ce98ac-902e-4c86-891c-4ea6dbb804bb" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="post:\campaign:application\json:apiRouter" doc:id="727cbacd-95be-413f-86ea-1f9011cf4bbb" name="post:\campaign:application\json:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="7dae530e-9cf7-43de-b378-4f4487274e2e" actual="#[payload]" expected='#[[&#10;    {&#10;        &#10;        "Description": "koooi",&#10;        "ExpectedResponse": "0.0",&#10;        "type": "Campaign",&#10;        "CampaignMemberRecordTypeId": null,&#10;        "Name": "yaadev",&#10;        "Id": "7015g000000QLfJAAW",&#10;        "StartDate": null,&#10;        "NumberSent": "0.0",&#10;        "ExpectedRevenue": null,&#10;        "OwnerId": "0055g0000010kF7AAI",&#10;        "BudgetedCost": null,&#10;        "ParentId": null,&#10;        "Status": "Planned",&#10;        "EndDate": null,&#10;        "ActualCost": null,&#10;        "Type": "Conference"&#10;    }]]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="api-test-suite-get:\accounts:apiRouterTest" doc:id="b7abb94d-ba2d-47df-af37-c7e98fec32fd" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="bb83ca56-ced5-4607-a23a-0f8ba81fa988" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="63a63a79-b5a4-475d-a4ed-3ada0559bc8d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  accountId: "0014I00001qsS4lQAE",&#10;  tradingName: "GenePoint",&#10;  accountNumber: "CC978213",&#10;  industry: "Biotechnology",&#10;  contacts: [&#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }, &#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }&#10;  ],&#10;  links: [&#10;    {&#10;      rel: "self",&#10;      href: "accounts/0014I00001qsS4lQAE"&#10;    }&#10;  ]&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\accounts:apiRouter" doc:id="14733a8d-3043-40c1-b0ef-389d7bf36cbc" name="get:\accounts:apiRouter"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="4b20c642-da1e-481c-ac72-eed8fc26d1ed" actual="#[payload]" expected='#[{&#10;  accountId: "0014I00001qsS4lQAE",&#10;  tradingName: "GenePoint",&#10;  accountNumber: "CC978213",&#10;  industry: "Biotechnology",&#10;  contacts: [&#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }, &#10;    {&#10;      firstName: "Edna",&#10;      lastName: "Frank",&#10;      title: "VP, Technology",&#10;      email: "efrank@genepoint.com",&#10;      phone: "(650) 867-3450"&#10;    }&#10;  ],&#10;  links: [&#10;    {&#10;      rel: "self",&#10;      href: "accounts/0014I00001qsS4lQAE"&#10;    }&#10;  ]&#10;}]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd ">
+    <flow name="apix-salesforce-sapi-main">
+        <http:listener path="/api/*" config-ref="apiHttpListenerConfig">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="apiRouter" />
+    </flow>
+    <flow name="put:\accounts\(accountid):application\json:apiRouter">
+        <flow-ref doc:name="upsert-account-flow" doc:id="f82f464b-cc58-40f8-a08c-00426b1c778a" name="upsert-account-flow" />
+    </flow>
+    <flow name="get:\accounts:apiRouter">
+        <flow-ref doc:name="query-all-accounts-flow" doc:id="63a63a79-b5a4-475d-a4ed-3ada0559bc8d" name="query-all-accounts-flow" />
+    </flow>
+    <flow name="get:\accounts\(accountid):apiRouter">
+        <flow-ref doc:name="query-account-by-id-flow" doc:id="94cb4961-ce49-450b-808c-d54d84d01a60" name="query-account-by-id-flow" />
+    </flow>
+    <flow name="post:\accounts:application\json:apiRouter">
+        <flow-ref doc:name="post-account-flow" doc:id="4595091c-3ba2-4be1-ad71-3f5edcba9b3f" name="post-account-flow" />
+    </flow>
+    <flow name="put:\contacts\(contactid):application\json:apiRouter">
+        <flow-ref doc:name="upsert-contact-flow" doc:id="4bd126e3-8f9e-458c-abb5-37b342ff4347" name="upsert-contact-flow" />
+    </flow>
+    <flow name="put:\lead\(leadid):application\json:apiRouter">
+        <flow-ref doc:name="upsert-lead-flow" doc:id="b927a640-76c0-431e-b7c7-207717b021e7" name="upsert-lead-flow" />
+    </flow>
+    <flow name="get:\contacts:apiRouter">
+        <flow-ref doc:name="query-all-contacts-flow" doc:id="ed05a68b-fed8-4e8b-84ce-1373469ffd8d" name="query-all-contacts-flow" />
+    </flow>
+    <flow name="get:\lead:apiRouter">
+        <flow-ref doc:name="query-all-lead-flow" doc:id="3ef2c600-a002-432f-b859-79784452c10b" name="query-all-lead-flow" />
+    </flow>
+    <flow name="get:\contacts\(contactid):apiRouter">
+        <flow-ref doc:name="query-contacts-by-id-flow" doc:id="47fb20b9-a07c-4710-8b4f-a87f154e2833" name="query-contacts-by-id-flow" />
+    </flow>
+    <flow name="get:\lead\(leadid):apiRouter">
+        <flow-ref doc:name="query-lead-by-id-flow" doc:id="8a46d3be-932e-40bc-bb1b-8967116c0171" name="query-lead-by-id-flow" />
+    </flow>
+    <flow name="post:\contacts:application\json:apiRouter">
+        <flow-ref doc:name="post-contact-flow" doc:id="f3ea418b-08b3-4604-b1ac-a66930c50163" name="post-contact-flow" />
+    </flow>
+    <flow name="post:\lead:application\json:apiRouter">
+        <flow-ref doc:name="post-lead-flow" doc:id="503a6faa-e999-4bc5-b764-15ff841f5514" name="post-lead-flow" />
+    </flow>
+    <flow name="put:\campaign\(campaignid):application\json:apiRouter">
+		<flow-ref doc:name="upsert-campaign-flow" doc:id="34bd4dae-fe92-4466-84ef-3d48129786c5" name="upsert-campaign-flow"/>
+    </flow>
+    <flow name="get:\campaign:apiRouter">
+		<flow-ref doc:name="query-all-campaign-flow" doc:id="4c85591b-ef48-4201-9852-a29ccfac3f65" name="query-all-campaign-flow"/>
+    </flow>
+    <flow name="get:\campaign\(campaignid):apiRouter">
+		<flow-ref doc:name="query-campaign-by-id-flow" doc:id="5099e771-c346-4043-9d88-200b8d66041b" name="query-campaign-by-id-flow"/>
+    </flow>
+    <flow name="post:\campaign:application\json:apiRouter">
+		<flow-ref doc:name="post-campaign-flow" doc:id="55ce98ac-902e-4c86-891c-4ea6dbb804bb" name="post-campaign-flow"/>
+    </flow>
+</mule>
